@@ -65,6 +65,14 @@
             </a>
         </li>
         <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('admin.review_groups.index') }}">
+                <svg class="c-sidebar-nav-icon">
+                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-address-book') }}"></use>
+                </svg>
+                {{ __('Категории') }}
+            </a>
+        </li>
+        <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <svg class="c-sidebar-nav-icon">
