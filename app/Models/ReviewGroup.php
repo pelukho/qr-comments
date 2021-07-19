@@ -16,4 +16,9 @@ class ReviewGroup extends Model
     {
         return $this->hasMany(Reviews::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_review_groups');
+    }
 }

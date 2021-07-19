@@ -11,7 +11,7 @@
                                 <div class="c-message-details">
                                     <div class="c-message-headers">
                                         <h4 class="c-message-headers-subject">
-                                            {{ __('Ответ отправлет от ') }} "{{ $review->getCategoryName($review->review_group_id) }}"
+                                            {{ __('Место отправки:') }} "{{ $review->reviewGroup->name }}"
                                         </h4>
                                         <div class="c-message-headers-from">
                                             <span class="text-muted">{{ __('От:') }}</span> {{ $review->review_author }}
@@ -28,6 +28,9 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    <div class="c-message-headers-from">
+                                        <span class="text-muted">{{ __('Отзыв:') }}</span>
+                                    </div>
                                     <div class="c-message-body">
                                         <p>{{ $review->review_content }}</p>
                                     </div>

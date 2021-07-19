@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\ReviewGroupController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'index'])->name('home');
+Route::post('/send_review', [SiteController::class, 'store']);
 
 Auth::routes([
     'register' => false,
@@ -26,11 +28,16 @@ Auth::routes([
     'verify' => false,
 ]);
 
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::resource('review_groups', ReviewGroupController::class);
         Route::resource('reviews', ReviewController::class);
     });
+
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function() {
+        Route::resource('users', UserController::class);
+    });
 });
+

@@ -20,12 +20,8 @@ class Reviews extends Model
         'review_status',
     ];
 
-    /**
-     * @param int $id
-     * @return string
-     */
-    public function getCategoryName(int $id)
+    public function reviewGroup()
     {
-        return ReviewGroup::query()->find($id)->name;
+        return $this->belongsTo(ReviewGroup::class);
     }
 }

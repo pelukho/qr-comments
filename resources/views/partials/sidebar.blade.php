@@ -56,14 +56,18 @@
                 Отзывы
             </a>
         </li>
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="#">
-                <svg class="c-sidebar-nav-icon">
-                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user-unfollow') }}"></use>
-                </svg>
-                Пользователи
-            </a>
-        </li>
+        @if(auth()->user()->is_admin)
+
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="{{ route('admin.users.index') }}">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user-unfollow') }}"></use>
+                    </svg>
+                    {{ __('Пользователи') }}
+                </a>
+            </li>
+
+        @endif
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('admin.review_groups.index') }}">
                 <svg class="c-sidebar-nav-icon">

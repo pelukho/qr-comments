@@ -27,7 +27,7 @@
                                 <tr>
                                     <td>{{ $review->review_author }}</td>
                                     <td>
-                                        {{ $review->getCategoryName($review->review_group_id) }}
+                                        {{ $review->reviewGroup->name }}
                                     </td>
                                     <td>{{ $review->created_at->format('j.m.Y') }}</td>
                                     <td>
@@ -65,15 +65,17 @@
                                            class="btn btn-primary">
                                             {{ __('Детальнее') }}
                                         </a>
-                                        <form action="{{ route('admin.reviews.destroy', $review->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger"
-                                                    onclick="return confirm('{{ __('Вы уверены что хотиле удалить отзыв?') }}');"
-                                                    type="submit">
-                                                {{ __('Удалить отзыв') }}
-                                            </button>
-                                        </form>
+                                        @if(auth()->user()->is_admin)
+                                            <form action="{{ route('admin.reviews.destroy', $review->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger"
+                                                        onclick="return confirm('{{ __('Вы уверены что хотиле удалить отзыв?') }}');"
+                                                        type="submit">
+                                                    {{ __('Удалить отзыв') }}
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

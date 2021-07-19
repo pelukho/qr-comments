@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@site.com',
             'password' => bcrypt('admin123'),
+            'is_admin' => 1
         ]);
     }
 }

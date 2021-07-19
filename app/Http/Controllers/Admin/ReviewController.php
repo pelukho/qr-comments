@@ -15,7 +15,25 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Reviews::query()->paginate(10);
+        $currentUser = auth()->user();
+
+        if ($currentUser->is_admin) {
+            $reviews = Reviews::with('reviewGroup')->orderByDesc('created_at')->paginate(10);
+        } else {
+            $availableCategories = [];
+            $reviews = $currentUser->reviewGroup()->get();
+
+            if(count($reviews) > 0) {
+                foreach ($reviews as $item) {
+                    $availableCategories[] = $item->id;
+                }
+            }
+
+            $reviews = Reviews::with('reviewGroup')
+                ->whereIn('review_group_id', $availableCategories)
+                ->orderByDesc('created_at')
+                ->paginate(10);
+        }
 
         return view('reviews.index', compact('reviews', $reviews));
     }

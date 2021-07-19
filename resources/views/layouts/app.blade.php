@@ -19,9 +19,6 @@
 
     <!-- CoreUI CSS -->
     <link rel="stylesheet" href="{{ asset('css/coreui.min.css') }}">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="c-app">
 
