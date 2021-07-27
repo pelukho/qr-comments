@@ -161,12 +161,8 @@ body {
             background-color: #fff;
             padding: 0 5px;
             border-radius: 4px;
-        }
 
-        input,
-        textarea {
-
-            &:focus + label {
+            &.up {
                 border: 1px solid #ab9ece;
                 transform: translate(-15px, -27px);
             }

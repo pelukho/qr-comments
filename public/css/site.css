@@ -139,8 +139,7 @@ body {
   padding: 0 5px;
   border-radius: 4px;
 }
-.review-form .input-field input:focus + label,
-.review-form .input-field textarea:focus + label {
+.review-form .input-field label.up {
   border: 1px solid #ab9ece;
   transform: translate(-15px, -27px);
 }

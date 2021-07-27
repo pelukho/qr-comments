@@ -25,17 +25,17 @@ jQuery(document).ready(function ($) {
             beforeSend: function () {
                 $(`.form-control.${invalidClass}`).removeClass(invalidClass)
             },
-            success: function(response) {
-                if(response.errors) {
-                    const { errors } = response;
-                    for(let key in errors) {
-                        if(errors.hasOwnProperty(key)) {
+            success: function (response) {
+                if (response.errors) {
+                    const {errors} = response;
+                    for (let key in errors) {
+                        if (errors.hasOwnProperty(key)) {
                             $(`[name="${key}"]`).first().addClass(invalidClass);
                         }
                     }
                 }
 
-                if(response.hasOwnProperty('saved') && response.saved){
+                if (response.hasOwnProperty('saved') && response.saved) {
                     $this[0].reset();
                     let showMessage = new bootstrap.Modal(document.getElementById('messageModal'));
                     showMessage.show();
@@ -44,9 +44,22 @@ jQuery(document).ready(function ($) {
                 }
 
             },
-            error: function(e) {
+            error: function (e) {
                 console.log(e);
             }
         });
     });
+
+    $('.input-field input, .input-field textarea')
+        .focus(function () {
+            let $id = $(this).attr('id');
+            $(`[for="${$id}"]`).addClass('up');
+        })
+        .focusout(function () {
+            let $id = $(this).attr('id');
+
+            if (!$(this).val().trim().length) {
+                $(`[for="${$id}"]`).removeClass('up');
+            }
+        });
 });
