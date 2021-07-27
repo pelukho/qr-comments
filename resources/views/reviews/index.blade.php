@@ -62,8 +62,12 @@
                                     </td>
                                     <td style="max-width: 140px">
                                         <a href="{{ route('admin.reviews.show', $review->id) }}"
+                                           title="{{ __('Просмотр') }}"
                                            class="btn btn-primary">
-                                            {{ __('Детальнее') }}
+                                            <svg class="c-icon">
+                                                <use
+                                                    xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-description') }}"></use>
+                                            </svg>
                                         </a>
                                         @if(auth()->user()->is_admin)
                                             <form action="{{ route('admin.reviews.destroy', $review->id) }}" method="POST" class="d-inline">
@@ -71,8 +75,13 @@
                                                 @method('DELETE')
                                                 <button class="btn btn-danger"
                                                         onclick="return confirm('{{ __('Вы уверены что хотиле удалить отзыв?') }}');"
-                                                        type="submit">
-                                                    {{ __('Удалить отзыв') }}
+                                                        type="submit"
+                                                        title="{{ __('Удалить') }}"
+                                                >
+                                                    <svg class="c-icon">
+                                                        <use
+                                                            xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-trash') }}"></use>
+                                                    </svg>
                                                 </button>
                                             </form>
                                         @endif

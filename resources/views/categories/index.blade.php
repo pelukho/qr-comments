@@ -13,11 +13,11 @@
                             <div class="row align-items-center mt-1">
                                 <div class="col-6 col-sm-4 col-md mb-3">
                                     <a href="{{ route('admin.review_groups.create') }}" class="btn btn-primary"
-                                       type="button">
+                                       type="button" title="{{ __('Добавить категорию') }}">
                                         <svg class="c-icon">
                                             <use
-                                                xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-lightbulb') }}"></use>
-                                        </svg>&nbsp;{{ __('Добавить категорию') }}
+                                                xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-plus') }}"></use>
+                                        </svg>
                                     </a>
                                 </div>
                             </div>
@@ -37,20 +37,36 @@
                                             <td style="width: 15%;">{{ $loop->iteration }}</td>
                                             <td style="width: 45%">{{ $category->name }}</td>
                                             <td style="width: 25%;">
+                                                <button class="btn btn-info"
+                                                        data-value="{{ url('/ru?code=' . $category->id) }}"
+                                                        type="button" title="{{ __('Скопировать ссылку') }}">
+                                                    <svg class="c-icon">
+                                                        <use
+                                                            xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-copy') }}"></use>
+                                                    </svg>
+                                                </button>
                                                 <a href="{{ route('admin.review_groups.edit', $category->id) }}"
                                                    class="btn btn-primary" type="button">
-                                                    {{ __('Изменить') }}
+                                                    <svg class="c-icon">
+                                                        <use
+                                                            xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-pencil') }}"></use>
+                                                    </svg>
                                                 </a>
-                                                <form action="{{ route('admin.review_groups.destroy', $category) }}"
-                                                      method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger"
-                                                            onclick="return confirm('{{ __('Вы уверены что хотиле удалить категорию?') }}');"
-                                                            type="submit">
-                                                        {{ __('Удалить категорию') }}
-                                                    </button>
-                                                </form>
+                                                @if(auth()->user()->is_admin)
+                                                    <form action="{{ route('admin.review_groups.destroy', $category) }}"
+                                                          method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger"
+                                                                onclick="return confirm('{{ __('Вы уверены что хотиле удалить категорию?') }}');"
+                                                                type="submit">
+                                                            <svg class="c-icon">
+                                                                <use
+                                                                    xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-trash') }}"></use>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

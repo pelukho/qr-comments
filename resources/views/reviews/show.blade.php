@@ -38,25 +38,36 @@
 
                                     @if(!$review->review_status)
 
-                                    <form class="mt-3" method="post" action="">
-                                        <div class="form-group">
-                                            <textarea class="form-control" id="message" name="body" rows="12"
-                                                      placeholder="{{ __('Ответить') }}"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-success" tabindex="3" type="submit">
-                                                {{ __('Отправить ответ') }}
-                                            </button>
-                                        </div>
-                                    </form>
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                @foreach ($errors->all() as $error)
+                                                    <div>{{ $error }}</div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+
+                                        <form class="mt-3" method="POST" action="{{ route('admin.reviews.store') }}">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="review_id" value="{{ $review->id }}">
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="message" name="body" rows="12"
+                                                          placeholder="{{ __('Ответить') }}"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success" tabindex="3" type="submit">
+                                                    {{ __('Отправить ответ') }}
+                                                </button>
+                                            </div>
+                                        </form>
 
                                     @else
                                         <div class="card">
                                             <div class="card-header">
-                                                {{ __('Отзыв отвечен следующим письмом') }}<span class="badge badge-success float-right">{{ __('Отвечено') }}</span>
+                                                {!! __('Отзыв отвечен <b>:name</b> следующим письмом', ['name' => $reviewResponse->user->name]) !!}<span class="badge badge-success float-right">{{ __('Отвечено') }}</span>
                                             </div>
                                             <div class="card-body">
-                                                Тело ответа
+                                                {{ $reviewResponse->body }}
                                             </div>
                                         </div>
 

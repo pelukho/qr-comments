@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\ReviewGroup;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -61,7 +62,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -106,6 +107,59 @@ class UserController extends Controller
         $user->update($updateData);
 
         return redirect()->route('admin.users.index');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function settings($id)
+    {
+        $user = User::find($id);
+
+        //dd(Auth::user()->id);
+
+        if(!$user || $user->id !== Auth::user()->id) {
+            abort(403);
+        }
+
+        return view('users.settings', compact('user', $user));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateSettings(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'password' => ['confirmed'],
+        ]);
+
+        $updateData = [
+            'name' => $validated['name'],
+            'email' => $validated['email']
+        ];
+
+        if(isset($validated['password'])) {
+            $updateData['password'] = Hash::make($validated['password'], [
+                'memory' => 1024,
+                'time' => 2,
+                'threads' => 2,
+            ]);
+        }
+
+        $user = User::find($id);
+        $user->update($updateData);
+
+        return redirect()->route('admin.dashboard.index');
     }
 
     /**

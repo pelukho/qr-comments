@@ -1,9 +1,11 @@
 jQuery(document).ready(function ($) {
     $('#review-form').submit(function (e) {
         e.preventDefault()
+        let categoryId = new URLSearchParams(document.location.search),
+            defaultCategory = $('[name="default-category"]').attr('content');
+        categoryId = categoryId.get('code') ? +categoryId.get('code') : +defaultCategory;
 
         let $this = $(this),
-            categoryId = new URLSearchParams(document.location.search),
             formData = {
                 review_author: $this.find('input[name="review_author"]').val(),
                 review_author_phone: $this.find('input[name="review_author_phone"]').val(),
@@ -11,7 +13,7 @@ jQuery(document).ready(function ($) {
                 review_content: $this.find('textarea[name="review_content"]').val(),
                 review_rating: $this.find('input[name="review_rating"]:checked').val(),
                 _token: $this.find('input[name="_token"]').val(),
-                review_group_id: +categoryId.get('code')
+                review_group_id: categoryId
             },
             invalidClass = 'is-invalid';
 

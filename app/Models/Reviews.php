@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Reviews extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
         'review_groups_id',
@@ -23,5 +24,10 @@ class Reviews extends Model
     public function reviewGroup()
     {
         return $this->belongsTo(ReviewGroup::class);
+    }
+
+    public function reviewResponse()
+    {
+        return $this->hasOne(ReviewResponse::class, 'review_responses');
     }
 }

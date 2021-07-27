@@ -1,5 +1,6 @@
 body {
   line-height: 1.3;
+  font-family: "Rubik", sans-serif;
 }
 
 .header {
@@ -124,11 +125,28 @@ body {
 .review-form textarea.is-invalid {
   box-shadow: 0 0 0 0.2rem rgba(238, 0, 0, 0.25);
 }
+.review-form .input-field {
+  position: relative;
+}
+.review-form .input-field label {
+  margin-bottom: 0;
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  will-change: transform;
+  transition: transform ease-in-out 0.3s;
+  background-color: #fff;
+  padding: 0 5px;
+  border-radius: 4px;
+}
+.review-form .input-field input:focus + label,
+.review-form .input-field textarea:focus + label {
+  border: 1px solid #ab9ece;
+  transform: translate(-15px, -27px);
+}
 .review-form input,
 .review-form textarea {
   border-color: #331387;
-  text-align: center;
-  font-weight: bold;
   font-size: 19px;
   color: #ab9ece;
 }
@@ -185,5 +203,5 @@ body {
 .modal-body {
   font-size: 25px;
   text-align: center;
-  padding: 3em 1em;
+  padding: 2em 1em;
 }

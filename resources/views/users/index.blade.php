@@ -13,11 +13,11 @@
                             <div class="row align-items-center mt-1">
                                 <div class="col-6 col-sm-4 col-md mb-3">
                                     <a href="{{ route('admin.users.create') }}" class="btn btn-primary"
-                                       type="button">
+                                       type="button" title="{{ __('Добавить пользователя') }}">
                                         <svg class="c-icon">
                                             <use
-                                                xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-lightbulb') }}"></use>
-                                        </svg>&nbsp;{{ __('Добавить пользователя') }}
+                                                xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-plus') }}"></use>
+                                        </svg>
                                     </a>
                                 </div>
                             </div>
@@ -41,16 +41,23 @@
                                     </td>
                                     <td style="max-width: 140px">
                                         <a href="{{ route('admin.users.edit', $user->id) }}"
-                                           class="btn btn-primary">
-                                            {{ __('Детальнее') }}
+                                           class="btn btn-primary" title="{{ __('Детальнее') }}">
+                                            <svg class="c-icon">
+                                                <use
+                                                    xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-pencil') }}"></use>
+                                            </svg>
                                         </a>
                                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger"
                                                     onclick="return confirm('{{ __('Вы уверены что хотиле удалить пользователя?') }}');"
-                                                    type="submit">
-                                                {{ __('Удалить пользователя') }}
+                                                    type="submit"
+                                                    title="{{ __('Удалить пользователя') }}">
+                                                <svg class="c-icon">
+                                                    <use
+                                                        xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-trash') }}"></use>
+                                                </svg>
                                             </button>
                                         </form>
                                     </td>

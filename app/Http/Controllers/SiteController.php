@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reviews;
+use App\Notifications\HightRatingNotification;
+use App\Notifications\LeaveReviewNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class SiteController extends Controller
@@ -15,7 +18,7 @@ class SiteController extends Controller
      * @param $locale
      * @return \Illuminate\Http\Response
      */
-    public function index($locale = 'ua')
+    public function index($locale = 'ru')
     {
         App::setLocale($locale);
 
@@ -53,18 +56,17 @@ class SiteController extends Controller
         $review->review_rating = (int) $request->review_rating;
         $review->review_group_id = (int) $request->review_group_id;
 
-        return response()->json(['saved' => $review->save()]);
-    }
+        if(abs($request->review_rating) === 5) {
+            $review->review_status = 1;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+            Notification::route('mail', $review->review_author_email)
+                ->notify(new HightRatingNotification($review->review_author));
+        }
+
+        $saved = $review->save();
+
+        $review->notify(new LeaveReviewNotification($review->id));
+
+        return response()->json(['saved' => $saved]);
     }
 }
