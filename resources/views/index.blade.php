@@ -102,7 +102,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary w-100">{{ __('Отправить') }}</button>
                 </form>
-                <div class="privacy-text">
+                <div class="privacy-text text-center">
                     <p>
                         {{ __('Нажимая кнопку «Отправить», Вы соглашаетесь с условиями использования и политикой конфиденциальности') }}
                     </p>
