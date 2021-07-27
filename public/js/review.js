@@ -39,6 +39,7 @@ jQuery(document).ready(function ($) {
                     $this[0].reset();
                     let showMessage = new bootstrap.Modal(document.getElementById('messageModal'));
                     showMessage.show();
+                    $('.input-field label').removeClass('up');
 
                     $('.btn-close').click(() => showMessage.hide());
                 }
