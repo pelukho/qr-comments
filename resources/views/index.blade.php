@@ -84,7 +84,7 @@
                     </div>
                     <div class="mb-4">
                         <div class="input-field">
-                            <input type="text" name="review_author_phone" class="form-control" id="phone">
+                            <input type="tel" name="review_author_phone" class="form-control" id="phone">
                             <label for="phone">{{ __('Номер телефона *') }}</label>
                         </div>
                     </div>
@@ -114,6 +114,7 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/review.js') }}"></script>
 
 <!-- Modal -->
